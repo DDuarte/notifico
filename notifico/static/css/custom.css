@@ -1,0 +1,30 @@
+.content {
+	padding-top: 50px;
+	padding-bottom: 20px;
+}
+
+.alert {
+	border: none;
+	margin-bottom: 0;
+}
+
+.btn,
+.alert,
+.panel,
+.panel-heading {
+	border-radius: 0;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
+.td-c {
+	text-align: center;
+}
+
+.td-f {
+	width: 100%;
+}
+
+.table-vertical td {
+	vertical-align: middle;
+}

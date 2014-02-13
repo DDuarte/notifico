@@ -12,6 +12,26 @@
 {% if request.endpoint.startswith(end) %}active{% endif %}
 {% endmacro %}
 
+{# Helper for generating navbar links #}
+{% macro _nav(endpoint, text, icon='', title='', active='') %}
+  {% set active = active or endpoint %}
+  {% set title = title or text %}
+
+  {% if request.endpoint and request.endpoint.startswith(active) %}
+  <li class="active">
+    <a href="{{ url_for(endpoint) }}" title="{{ title }}">
+      {{ text }}
+    </a>
+  </li>
+  {% else %}
+  <li>
+    <a href="{{ url_for(endpoint) }}" title="{{ title }}">
+      {{ text }}
+    </a>
+  </li>
+  {% endif %}
+{% endmacro %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -21,14 +41,9 @@
     <meta name="author" content="">
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/custom.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    {% block style %}
-    {% endblock style %}
 
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
     {% if config.GOOGLE %}
     <script type="text/javascript">
       var _gaq = _gaq || [];
@@ -46,79 +61,39 @@
   </head>
 
   <body>
-    <div class="wrapper">
-      <div class="nav-container">
-        <div class="container">
-          <div class="navbar nav-top">
-            <div class="navbar-inner">
-              <a class="brand" href="/">Notifico</a>
-              <ul class="nav pull-right">
-                <li class="{{ active('public.landing') }}">
-                  <a href="/"><i class="icon-home"></i> Home</a>
-                </li>
-                {% if g.user %}
-                <li class="{{ active('projects.') }}">
-                  <a href="{{ url_for('projects.dashboard', u=g.user.username) }}">
-                    <i class="icon-th"></i> Projects
-                  </a>
-                </li>
-                <!-- User settings and actions  -->
-                <li class="dropdown {{ active('account.') }}">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                      <i class="icon-user"></i> {{ g.user.username }} <i class="icon-angle-down"></i> 
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li>
-                      <a href="{{ url_for('account.settings') }}">
-                        <i class="icon-cog"></i> Settings
-                      </a>
-                    </li>
-                    <li>
-                      <a href="{{ url_for('account.tokens') }}">
-                        <i class="icon-key"></i> OAuth Tokens
-                      </a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a href="{{ url_for('account.logout') }}">
-                            <i class="icon-signout"></i> Logout
-                        </a>
-                    </li>
-                  </ul>
-                </li>
-                {% else %}
-                <li>
-                  <a href="{{ url_for('account.login') }}">
-                    <i class="icon-signin"></i> Login
-                  </a>
-                </li>
-                <li>
-                  <a href="{{ url_for('account.register') }}">
-                    <i class="icon-plus"></i> Register
-                  </a>
-                </li>
-                {% endif %}
-              </ul>
-            </div>
-          </div>
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{{ url_for('public.landing') }}">
+            Notifico
+          </a>
         </div>
+        <ul class="nav navbar-nav navbar-right">
+          {{ _nav('public.landing', 'Home') }}
+          {% if not g.user %}
+          {# Only displayed when there's no logged in user. #}
+          {{ _nav('account.login', 'Login') }}
+          {{ _nav('account.register', 'Register') }}
+          {% else %}
+          {{ _nav('account.logout', 'Logout') }}
+          {% endif %}
+          </li>
+        </ul>
       </div>
-      <div class="container content">
-        {% block content %}
-        {% endblock content %}
-      </div>
-    </div>
-    <div class="footer">
-      <div class="container">
-        <div class="row-fluid">
-          <div class="span12 footer-copyright">
-            Copyright &copy; <span class="current_year">2013</span> Tyler Kennedy
-          </div>
-        </div>
-      </div>
+    </div> 
+
+    <div class="content">
+    {% block content %}
+    {% endblock content %}
     </div>
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="/js/jquery.min.js"><\/script>')</script>
     <script src="/js/bootstrap.min.js"></script>
   </body>
