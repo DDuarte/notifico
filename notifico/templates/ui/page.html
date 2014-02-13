@@ -13,3 +13,23 @@
     </ul>
   </div>
 {% endmacro %}
+
+{# Helper for generating navbar links #}
+{% macro nav(endpoint, text, icon='', title='', active='') %}
+  {% set active = active or endpoint %}
+  {% set title = title or text %}
+
+  {% if request.endpoint and request.endpoint.startswith(active) %}
+  <li class="active">
+    <a href="{{ url_for(endpoint) }}" title="{{ title }}">
+      {{ text }}
+    </a>
+  </li>
+  {% else %}
+  <li>
+    <a href="{{ url_for(endpoint) }}" title="{{ title }}">
+      {{ text }}
+    </a>
+  </li>
+  {% endif %}
+{% endmacro %}

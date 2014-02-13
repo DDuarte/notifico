@@ -1,23 +1,4 @@
-{# Helper for generating navbar links #}
-{% macro _nav(endpoint, text, icon='', title='', active='') %}
-  {% set active = active or endpoint %}
-  {% set title = title or text %}
-
-  {% if request.endpoint and request.endpoint.startswith(active) %}
-  <li class="active">
-    <a href="{{ url_for(endpoint) }}" title="{{ title }}">
-      {{ text }}
-    </a>
-  </li>
-  {% else %}
-  <li>
-    <a href="{{ url_for(endpoint) }}" title="{{ title }}">
-      {{ text }}
-    </a>
-  </li>
-  {% endif %}
-{% endmacro %}
-
+{% from "ui/page.html" import nav %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -61,13 +42,13 @@
           </a>
         </div>
         <ul class="nav navbar-nav navbar-right">
-          {{ _nav('public.landing', 'Home') }}
+          {{ nav('public.landing', 'Home') }}
           {% if not g.user %}
           {# Only displayed when there's no logged in user. #}
-          {{ _nav('account.login', 'Login') }}
-          {{ _nav('account.register', 'Register') }}
+          {{ nav('account.login', 'Login') }}
+          {{ nav('account.register', 'Register') }}
           {% else %}
-          {{ _nav('account.logout', 'Logout') }}
+          {{ nav('account.logout', 'Logout') }}
           {% endif %}
           </li>
         </ul>
