@@ -1,17 +1,3 @@
-{% macro repo_link(project) %}
-{% if not project.public %}
-<i class="icon-lock"></i>
-{% endif %}
-<a href="{{ url_for('projects.dashboard', u=project.owner.username) }}">
-  {{ project.owner.username }}
-</a><span class="muted">/</span><a href="{{ url_for('projects.details', u=project.owner.username, p=project.name) }}">
-  {{ project.name }}
-</a>
-{% endmacro %}
-{% macro active(end) %}
-{% if request.endpoint.startswith(end) %}active{% endif %}
-{% endmacro %}
-
 {# Helper for generating navbar links #}
 {% macro _nav(endpoint, text, icon='', title='', active='') %}
   {% set active = active or endpoint %}
