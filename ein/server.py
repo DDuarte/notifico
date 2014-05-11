@@ -39,6 +39,9 @@ def create_flask_application():
     # Use babel for localization.
     babel.init_app(app)
 
+    from ein.views.general import general_views
+    app.register_blueprint(general_views)
+
     return app
 
 
