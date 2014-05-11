@@ -12,3 +12,8 @@
 .navbar-ein .nav > li > a:focus {
     background-color: #EEE;
 }
+
+.navbar-ein .nav > li > a:hover,
+.navbar-ein .nav > li > a:focus {
+    color: #F24B72;
+}
