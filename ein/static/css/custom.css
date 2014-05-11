@@ -8,6 +8,11 @@ a:hover {
     text-decoration: none;
 }
 
+.btn {
+    border-radius: 0;
+    border: none;
+}
+
 .navbar-ein {
     background-color: #f4f4f4;
     border-width: 0;
