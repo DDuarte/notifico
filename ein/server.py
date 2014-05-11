@@ -36,6 +36,14 @@ def create_flask_application():
     app.config.from_object('ein.config')
     app.config.from_envvar('EIN_CONFIG', silent=True)
 
+    if app.config['ROUTE_STATIC_ASSETS']:
+        import os.path
+        from werkzeug import SharedDataMiddleware
+
+        app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
+            '/': os.path.join(os.path.dirname(__file__), 'static')
+        })
+
     # Use babel for localization.
     babel.init_app(app)
 

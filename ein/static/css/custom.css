@@ -1,0 +1,14 @@
+.navbar-ein {
+    background-color: #f4f4f4;
+}
+
+.navbar-ein .navbar-brand,
+.navbar-ein .navbar-nav > li > a {
+    color: #a4a4a4;
+}
+
+.navbar-ein .nav > li.active > a,
+.navbar-ein .nav > li > a:hover,
+.navbar-ein .nav > li > a:focus {
+    background-color: #EEE;
+}
