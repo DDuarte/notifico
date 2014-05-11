@@ -10,6 +10,7 @@ a:hover {
 
 .navbar-ein {
     background-color: #f4f4f4;
+    border-width: 0;
 }
 
 .navbar-ein .navbar-brand,
