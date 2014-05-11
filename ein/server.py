@@ -2,6 +2,9 @@
 # encoding: utf-8
 """ein-server
 
+Commands:
+    www             Start the embedded Flask HTTP server.
+
 Usage:
     ein-server www [--debug --port=<n> --host=<ip>]
 
