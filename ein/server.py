@@ -19,8 +19,12 @@ import sys
 
 from docopt import docopt
 from flask import Flask
+from flask.ext.babel import Babel
 
 from ein.version import __version__
+
+
+babel = Babel()
 
 
 def create_flask_application():
@@ -31,6 +35,9 @@ def create_flask_application():
     app = Flask(__name__)
     app.config.from_object('ein.config')
     app.config.from_envvar('EIN_CONFIG', silent=True)
+
+    # Use babel for localization.
+    babel.init_app(app)
 
     return app
 
