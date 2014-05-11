@@ -29,13 +29,13 @@
       </div>
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-        {% for endpoint, name in nav %}
+        {%- for endpoint, name in nav %}
           <li{% if endpoint == request.endpoint%} class="active"{% endif %}>
             <a href="{{ url_for(endpoint) }}">
               {{- name -}}
             </a>
           </li>
-        {% endfor %}
+        {%- endfor %}
         </ul>
       </div>
     </div>
