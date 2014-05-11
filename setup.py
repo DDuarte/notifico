@@ -12,5 +12,11 @@ if __name__ == '__main__':
         include_package_data=True,
         zip_safe=False,
         install_requires=[
-        ]
+            'docopt'
+        ],
+        entry_points={
+            'console_scripts': [
+                'ein-server = ein.server:from_cli'
+            ]
+        }
     )
