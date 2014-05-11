@@ -17,3 +17,7 @@
 .navbar-ein .nav > li > a:focus {
     color: #F24B72;
 }
+
+.icon-bar {
+    background-color: #F24B72;
+}
