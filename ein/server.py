@@ -4,9 +4,11 @@
 
 Commands:
     www             Start the embedded Flask HTTP server.
+    db init         Create any missing database tables.
 
 Usage:
     ein-server www [--debug --port=<n> --host=<ip>]
+    ein-server db init
 
 Options:
     --debug         Run with debugging enabled.
@@ -20,11 +22,13 @@ import sys
 from docopt import docopt
 from flask import Flask
 from flask.ext.babel import Babel
+from flask.ext.sqlalchemy import SQLAlchemy
 
 from ein.version import __version__
 
 
 babel = Babel()
+db = SQLAlchemy()
 
 
 def create_flask_application():
@@ -44,8 +48,8 @@ def create_flask_application():
             '/': os.path.join(os.path.dirname(__file__), 'static')
         })
 
-    # Use babel for localization.
     babel.init_app(app)
+    db.init_app(app)
 
     from ein.views.general import general_views
     app.register_blueprint(general_views)
@@ -61,14 +65,19 @@ def from_cli(argv=None):
     )
 
     if args['www']:
+        # Starts the built-in webserver.
         app = create_flask_application()
         app.run(
             host=args['--host'],
             port=int(args['--port']),
             debug=args['--debug']
         )
-
-        return 0
+    elif args['db']:
+        # Database-related commands.
+        app = create_flask_application()
+        with app.app_context():
+            if args['init']:
+                db.create_all()
 
 
 if __name__ == '__main__':

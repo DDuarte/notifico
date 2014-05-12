@@ -14,7 +14,8 @@ if __name__ == '__main__':
         install_requires=[
             'docopt',
             'flask',
-            'Flask-Babel'
+            'Flask-Babel',
+            'Flask-SQLAlchemy'
         ],
         entry_points={
             'console_scripts': [
