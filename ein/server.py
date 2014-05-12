@@ -75,6 +75,14 @@ def from_cli(argv=None):
     elif args['db']:
         # Database-related commands.
         app = create_flask_application()
+
+        # All of the models we want to create tables for must be imported
+        # so they can be seen by SQLAlchemy.
+        from ein.models.user import User
+        # These asserts are to silence warnings by pyflake8 in a more
+        # portable manner than the # NOQA flag.
+        assert(User)
+
         with app.app_context():
             if args['init']:
                 db.create_all()
