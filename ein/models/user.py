@@ -24,7 +24,7 @@ class User(db.Model):
     joined = db.Column(db.TIMESTAMP(), default=datetime.datetime.utcnow)
 
     #: Legacy usernames imported from Notifico, the predecessor to Ein.
-    legacy_username = db.Column(db.String(50), unique=True, nullable=False)
+    legacy_username = db.Column(db.String(50), unique=True, nullable=True)
 
     def __init__(self, primary_email, password):
         self.primary_email = primary_email
