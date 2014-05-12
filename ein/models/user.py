@@ -30,6 +30,11 @@ class User(db.Model):
         self.primary_email = primary_email
         self.change_password(password)
 
+    def __repr__(self):
+        return '<User(primary_email={email!r})>'.format(
+            email=self.primary_email
+        )
+
     def change_password(self, new_password):
         """
         Change the user's password.
