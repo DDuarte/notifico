@@ -54,5 +54,4 @@ nosetests.xml
 .pydevproject
 
 # Project-specific
-testing.db
-local_config.py
+ein_testing.db
